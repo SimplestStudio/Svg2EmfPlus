@@ -327,7 +327,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             }
             float width = (float)_wtoi(wBuf);
             float height = (float)_wtoi(hBuf);
-            ConvertAndSaveSvgToEmfPlus(GetDC(hWnd), filePath, svgImage, 0, 0, width, height);
+            HDC hdc = GetDC(hWnd);
+            ConvertAndSaveSvgToEmfPlus(hdc, filePath, svgImage, 0, 0, width, height);
+            ReleaseDC(hWnd, hdc);
             break;
         }
         case IDC_CHECK_KEEP_AR: {
